@@ -1,0 +1,21 @@
+﻿<vm:MainViewModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:NMEARemote.ViewModels"
+    xmlns:vmNMEA="clr-namespace:NMEAShared;assembly=NMEAShared">
+
+    <vm:MainViewModel.Speed>
+        <vmNMEA:NMEADataItem Data="11.50" DisplayName="Speed" Units="Kt"/>
+        <vmNMEA:NMEADataItem Data="10.34" DisplayName="SOG" Units="Kt"/>
+        <vmNMEA:NMEADataItem Data="55" DisplayName="Heading" Units="deg"/>
+        <vmNMEA:NMEADataItem Data="60" DisplayName="COG" Units="deg"/>
+    </vm:MainViewModel.Speed>
+
+    <vm:MainViewModel.Wind>
+        <vmNMEA:NMEADataItem Data="11.50" DisplayName="TWS" Units="Kt"/>
+        <vmNMEA:NMEADataItem Data="10.34" DisplayName="TWA"/>
+        <vmNMEA:NMEADataItem Data="55" DisplayName="AWS" Units="Kt"/>
+        <vmNMEA:NMEADataItem Data="60" DisplayName="AWA"/>
+    </vm:MainViewModel.Wind>
+
+</vm:MainViewModel>

@@ -1,0 +1,175 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="GribViewer.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,10">
+            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.SettingsPageTitle, Source={StaticResource LocalizedStrings}}" Margin="9,-10,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <ScrollViewer Grid.Row="1">
+            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="MapSelection" Grid.Row="0" Orientation="Vertical">
+                    <TextBlock Text="{Binding Path=LocalizedResources.MapArea, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" >
+                            <TextBlock Text="Lat0: " />
+                            <TextBlock Text="{Binding Path=Pos0.Latitude, StringFormat=\{0:n1\}}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" >
+                            <TextBlock Text="Lon0: " />
+                            <TextBlock Text="{Binding Path=Pos0.Longitude, StringFormat=\{0:n1\}}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+                            <TextBlock Text="Lat1: " />
+                            <TextBlock Text="{Binding Path=Pos1.Latitude, StringFormat=\{0:n1\}}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
+                            <TextBlock Text="Lon1: " />
+                            <TextBlock Text="{Binding Path=Pos1.Longitude, StringFormat=\{0:n1\}}"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <TextBlock Text="{Binding Path=LocalizedResources.GribOptions, Source={StaticResource LocalizedStrings}}"  Style="{StaticResource PhoneTextGroupHeaderStyle}" />
+                    <StackPanel x:Name="GribOptions"  HorizontalAlignment="Left" Orientation="Horizontal">
+                        <CheckBox Content="{Binding Path=LocalizedResources.Wind, Source={StaticResource LocalizedStrings}}" 
+                                  IsChecked="True" 
+                                  RenderTransformOrigin="0.5,0.5"
+                                  IsEnabled="False">
+                            <CheckBox.RenderTransform>
+                                <CompositeTransform ScaleX="0.8" ScaleY="0.8"/>
+                            </CheckBox.RenderTransform>
+                        </CheckBox>
+                        <CheckBox Content="{Binding Path=LocalizedResources.Pressure, Source={StaticResource LocalizedStrings}}" 
+                                  RenderTransformOrigin="0.5,0.5"
+                                  IsChecked="{Binding Path=PressureFC , Mode=TwoWay}"
+                                  IsEnabled="True"
+                                  Visibility="Visible">
+                                <CheckBox.RenderTransform>
+                                    <CompositeTransform ScaleX="0.8" ScaleY="0.8"/>
+                                </CheckBox.RenderTransform>
+                        </CheckBox>
+                        <CheckBox Content="{Binding Path=LocalizedResources.Rain, Source={StaticResource LocalizedStrings}}"
+                                  Visibility="Collapsed">
+                                <CheckBox.RenderTransform>
+                                    <CompositeTransform ScaleX="0.8" ScaleY="0.8"/>
+                                </CheckBox.RenderTransform>
+                        </CheckBox>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                                     
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <StackPanel Orientation="Vertical" Margin="0,0,10,0" Width="70">
+                                <TextBlock Text="{Binding Path=LocalizedResources.Days, Source={StaticResource LocalizedStrings}}" 
+                                           HorizontalAlignment="Center"/>
+                                <Slider x:Name="ForcastDuration" 
+                                        Value="{Binding Path=Days, Mode=TwoWay}" 
+                                        Minimum="1" Maximum="5" 
+                                        Orientation="Vertical" Height="160" 
+                                        ValueChanged="ForcastDuration_ValueChanged"
+                                        />
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="0,0,10,0" Width="70">
+                                <TextBlock Text="{Binding Path=LocalizedResources.Interval, Source={StaticResource LocalizedStrings}}"
+                                           HorizontalAlignment="Center"/>
+                                <Slider x:Name="ForecastInterval" 
+                                        Value="{Binding Path=Interval, Mode=TwoWay}" 
+                                        Minimum="3" Maximum="24"
+                                        Orientation="Vertical" Height="160" 
+                                        ValueChanged="ForecastInterval_ValueChanged"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="0,0,10,0" Width="70">
+                                <TextBlock Text="{Binding Path=LocalizedResources.Resolution, Source={StaticResource LocalizedStrings}}"
+                                           HorizontalAlignment="Center"/>
+                                <Slider x:Name="ForecastRes"
+                                        Value="{Binding Path=Resolution, Mode=TwoWay}" 
+                                        Minimum="0.25" Maximum="2" 
+                                        Orientation="Vertical" Height="160" 
+                                        ValueChanged="ForecastRes_ValueChanged"/>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                <TextBlock Text="{Binding Path=LocalizedResources.ForcastDays, Source={StaticResource LocalizedStrings}}" />
+                                <TextBlock Text="{Binding Path=Value, ElementName=ForcastDuration}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                <TextBlock Text="{Binding Path=LocalizedResources.ForcastInterval, Source={StaticResource LocalizedStrings}}" />
+                                <TextBlock Text="{Binding Path=Value, ElementName=ForecastInterval}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                <TextBlock Text="{Binding Path=LocalizedResources.ForcastResolution, Source={StaticResource LocalizedStrings}}" />
+                                <TextBlock Text="{Binding Path=Value, ElementName=ForecastRes}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2">
+                    <TextBlock Text="{Binding Path=LocalizedResources.GRIBData, Source={StaticResource LocalizedStrings}}"  Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Forecast Time (UTC): " />
+                        <TextBlock Text="{Binding Path=ForeCastTime}"/>
+                    </StackPanel>
+                    
+                    <!--<TextBlock>Source:</TextBlock>-->
+                </StackPanel>
+
+                <StackPanel Grid.Row="3">
+                    <Button Tap="Button_Tap" 
+                            Content="{Binding Path=LocalizedResources.DownloadButton, Source={StaticResource LocalizedStrings}}"
+                    />
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+
+</phone:PhoneApplicationPage>

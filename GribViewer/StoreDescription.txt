@@ -1,0 +1,14 @@
+GRIB Viewer is basic weather GRIB viewer.
+
+Currently the GRIBs are loaded from email attachments. You can request an email with attached GRIB from the application. Tap on the email attachment to load it into the application. The GRIBs sourced via email are of the GFS model supplied by NOAA via www.SailDocs.com.
+
+Supported GRIB parameters, 10m Wind Speed and Wind Direction.
+
+
+
+GRIB Viewer est un lecteur de météo GRIB simple.
+
+Les GRIB sont chargés de pièces jointes. Cette application vous permettra de demander un e-mail avec les GRIB en pièce jointe.  Appuyez sur la pièce jointe pour la charger dans l'application. Les GRIB provenant par e-mail sont du modèle GFS fournies par NOAA via www.SailDocs.com.
+
+Paramètres GRIB pris en charge: vitesse et direction du vent à 10m.
+
